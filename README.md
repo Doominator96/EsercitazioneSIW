@@ -1,3 +1,3 @@
 # EsercitazioneSIW
 
-###..*Domenico Laurito 176220
+### *Domenico Laurito 176220
