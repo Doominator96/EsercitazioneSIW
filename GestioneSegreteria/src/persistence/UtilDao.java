@@ -19,7 +19,8 @@ public void dropDatabase(){
 	try {
 		String delete = "drop SEQUENCE if EXISTS sequenza_id;"
 				+ "drop table if EXISTS studente;"
-				+ "drop table if exists gruppo;";
+				+ "drop table if exists gruppo;"
+				+ "drop table if exists indirizzo;";
 		PreparedStatement statement = connection.prepareStatement(delete);
 		
 		statement.executeUpdate();
@@ -45,9 +46,10 @@ public void createDatabase(){
 		
 		String delete = "create SEQUENCE sequenza_id;"
 				+ "create table gruppo (\"id\" bigint primary key, nome varchar(255));"
+				+ "create table indirizzo (\"codice\" bigint primary key, nome varchar(255));"
 				+ "create table studente(matricola CHARACTER(8) primary key,"
 				+ "nome VARCHAR(255),cognome VARCHAR(255),"
-				+ "data_nascita DATE, gruppo_id bigint REFERENCES gruppo(\"id\"));";
+				+ "data_nascita DATE, gruppo_id bigint REFERENCES gruppo(\"id\"), indirizzo_codice bigint REFERENCES indirizzo(\"codice\"));";
 		PreparedStatement statement = connection.prepareStatement(delete);
 		
 		statement.executeUpdate();

@@ -2,8 +2,10 @@ package persistence;
 
 import model.Studente;
 import persistence.dao.GruppoDao;
+import persistence.dao.IndirizzoDao;
 import persistence.dao.StudenteDao;
 import model.Gruppo;
+import model.Indirizzo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -87,7 +89,7 @@ class GruppoDaoJDBC implements GruppoDao {
 		try {
 			PreparedStatement statement;
 			String query = "select g.id as g_id, g.nome as g_nome, s.matricola as matricola, s.nome as nome, "
-					+ "s.cognome as cognome, s.data_nascita as data_nascita "
+					+ "s.cognome as cognome, s.data_nascita as data_nascita, s.indirizzo_codice as indirizzo_codice "
 					+ "from gruppo g left outer join studente s on g.id=s.gruppo_id "
 					+ "where g.nome = ?";
 			statement = connection.prepareStatement(query);
@@ -108,6 +110,11 @@ class GruppoDaoJDBC implements GruppoDao {
 					studente.setCognome(result.getString("cognome"));
 					long secs = result.getDate("data_nascita").getTime();
 					studente.setDataNascita(new java.util.Date(secs));
+					
+					IndirizzoDao indirizzoDao = new IndirizzoDaoJDBC(dataSource);
+					Indirizzo indirizzo = indirizzoDao.findByPrimaryKey(result.getLong("indirizzo_codice"));
+					studente.setIndirizzo(indirizzo);
+					
 					gruppo.addStudente(studente);
 				}
 			}

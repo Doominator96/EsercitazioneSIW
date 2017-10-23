@@ -7,6 +7,7 @@ public class Studente {
 	private String nome;
 	private String cognome;
 	private Date dataNascita;
+	private Indirizzo indirizzo;
 
 	public Studente(){}
 	
@@ -59,6 +60,13 @@ public class Studente {
 		Studente studente = (Studente)object;
 		return (this.getMatricola() == studente.getMatricola());
 	}
+	public void setIndirizzo(Indirizzo indirizzo) {
+		this.indirizzo = indirizzo;
+	}
+	public Indirizzo getIndirizzo() {
+		return indirizzo;
+	}
+	
 	
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -66,6 +74,7 @@ public class Studente {
 		return "[" + this.getMatricola() + ", " + 
 				this.getNome() + ", " + 
 					this.getCognome() + ", " +
-						sdf.format(this.getDataNascita())+"]"; 		
+						sdf.format(this.getDataNascita())+ ", " +
+						this.getIndirizzo() + "]"; 		
 	}
 }
